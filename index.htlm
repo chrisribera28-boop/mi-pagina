@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Página Informativa</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #f4f4f4; color: #333; }
+        header { background: linear-gradient(45deg, #ff4d4d, #ffcc00); color: white; padding: 1rem; text-align: center; }
+        nav { display: flex; justify-content: center; background: #333; flex-wrap: wrap; }
+        nav a { color: white; padding: 1rem; text-decoration: none; }
+        nav a:hover { background: #ff4d4d; }
+        .container { max-width: 1100px; margin: auto; padding: 1rem; }
+        section { background: white; margin: 1rem 0; padding: 1rem; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        footer { background: #333; color: white; text-align: center; padding: 1rem; margin-top: 1rem; }
+        @media (max-width: 768px) {
+            nav { flex-direction: column; }
+            nav a { border-top: 1px solid #444; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Mi Página Informativa</h1>
+        <p>Diseño llamativo y adaptable</p>
+    </header>
+
+    <nav>
+        <a href="#sobre">Sobre Nosotros</a>
+        <a href="#servicios">Servicios</a>
+        <a href="#contacto">Contacto</a>
+    </nav>
+
+    <div class="container">
+        <section id="sobre">
+            <h2>Sobre Nosotros</h2>
+            <p>Somos una empresa dedicada a brindar soluciones innovadoras a nuestros clientes.</p>
+        </section>
+
+        <section id="servicios">
+            <h2>Servicios</h2>
+            <p>Ofrecemos consultoría, diseño web, marketing digital y más.</p>
+        </section>
+
+        <section id="contacto">
+            <h2>Contacto</h2>
+            <p>Email: contacto@empresa.com</p>
+            <p>Teléfono: +34 600 123 456</p>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Mi Empresa. Todos los derechos reservados.</p>
+    </footer>
+
+</body>
+</html>
