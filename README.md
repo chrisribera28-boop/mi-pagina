@@ -39,23 +39,44 @@
             transition: all 0.3s ease-in-out;
         }
         .funnel-stage:hover {
-            transform: translateY(-4px);
+            transform: translateY(-5px);
             box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            border-color: #93c5fd; /* blue-300 */
         }
         .funnel-stage.active {
-            border-color: #3b82f6; /* blue-500 */
+            border-color: #2563eb; /* blue-600 */
             background-color: #eff6ff; /* blue-50 */
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
         }
         .content-pane {
-            min-height: 300px;
+            transition: opacity 0.5s ease-in-out;
+        }
+        .content-pane.fade-in {
+            opacity: 1;
+        }
+        .content-pane.fade-out {
+            opacity: 0;
         }
         .chart-container {
             position: relative;
             width: 100%;
-            max-width: 320px;
+            max-width: 300px;
             margin-left: auto;
             margin-right: auto;
-            height: 320px;
+            height: 300px;
+        }
+        .icon-bg {
+            background-color: #dbeafe; /* blue-100 */
+            color: #2563eb; /* blue-600 */
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -71,7 +92,7 @@
 
         <!-- Section 1: Core Pillar -->
         <section id="pilar" class="mb-16">
-            <div class="card p-8 text-center bg-slate-800 text-white">
+            <div class="card p-8 text-center bg-slate-800 text-white rounded-xl">
                 <h2 class="text-2xl md:text-3xl font-bold mb-2">El Pilar Fonamental: L'Aval de Metso</h2>
                 <p class="md:text-xl">La nostra arma més poderosa no és el preu, és la confiança. Ens posicionem com l'extensió intel·ligent i assequible de Metso, eliminant el principal obstacle de venda: la por al desconegut.</p>
                 <p class="mt-4 text-lg font-semibold bg-slate-700 p-3 rounded-lg inline-block">"La fiabilitat i tecnologia de Metso, ara a un preu que et pots permetre."</p>
@@ -82,29 +103,30 @@
         <section id="embut" class="mb-16">
             <div class="text-center mb-8">
                 <h2 class="text-3xl font-bold text-slate-800">L'Embut de Captació Interactiu</h2>
-                <p class="mt-2 text-lg text-slate-600">Cada etapa del viatge del client està dissenyada amb precisió. Fes clic a cada fase per descobrir la tàctica i el raonament que hi ha al darrere.</p>
+                <p class="mt-2 text-lg text-slate-600">Cada etapa del viatge del client està dissenyada amb precisió. Fes clic a cada fase per descobrir la tàctica.</p>
             </div>
-            <div class="flex flex-col lg:flex-row gap-8">
-                <!-- Funnel Stages -->
-                <div class="w-full lg:w-1/3 space-y-4">
-                    <div id="stage-3" class="card p-6 funnel-stage">
-                        <h3 class="font-bold text-xl text-slate-800">Prioritat 3: Sembrar per al Futur</h3>
-                        <p class="text-slate-600">Construcció de relacions a llarg termini.</p>
-                    </div>
-                    <div id="stage-2" class="card p-6 funnel-stage">
-                        <h3 class="font-bold text-xl text-slate-800">Prioritat 2: Construir el Fort Digital</h3>
-                        <p class="text-slate-600">El nostre comercial 24/7 per convèncer.</p>
-                    </div>
-                    <div id="stage-1" class="card p-6 funnel-stage active">
-                        <h3 class="font-bold text-xl text-slate-800">Prioritat 1: Atacar la Demanda Activa</h3>
-                        <p class="text-slate-600">Resultats ràpids i directes.</p>
-                    </div>
+            <!-- Funnel Stages -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div id="stage-1" class="card p-6 funnel-stage flex flex-col items-center text-center active">
+                    <div class="icon-bg mb-4">🎯</div>
+                    <h3 class="font-bold text-xl text-slate-800">Prioritat 1: Atac Actiu</h3>
+                    <p class="text-slate-600 text-sm">Resultats ràpids i directes.</p>
                 </div>
-                <!-- Content Pane -->
-                <div class="w-full lg:w-2/3">
-                    <div id="content-pane" class="card p-8 content-pane">
-                        <!-- Content will be injected here by JS -->
-                    </div>
+                <div id="stage-2" class="card p-6 funnel-stage flex flex-col items-center text-center">
+                    <div class="icon-bg mb-4">🖥️</div>
+                    <h3 class="font-bold text-xl text-slate-800">Prioritat 2: Fort Digital</h3>
+                    <p class="text-slate-600 text-sm">El nostre comercial 24/7.</p>
+                </div>
+                <div id="stage-3" class="card p-6 funnel-stage flex flex-col items-center text-center">
+                    <div class="icon-bg mb-4">🤝</div>
+                    <h3 class="font-bold text-xl text-slate-800">Prioritat 3: Sembrar Futur</h3>
+                    <p class="text-slate-600 text-sm">Relacions a llarg termini.</p>
+                </div>
+            </div>
+            <!-- Content Pane -->
+            <div id="content-pane-wrapper" class="card p-8 min-h-[320px]">
+                <div id="content-pane" class="content-pane fade-out">
+                    <!-- Content will be injected here by JS -->
                 </div>
             </div>
         </section>
@@ -115,37 +137,37 @@
                 <h2 class="text-3xl font-bold text-slate-800">El Motor: Pressupost i Mesura</h2>
                 <p class="mt-2 text-lg text-slate-600">La nostra estratègia es basa en dades. Aquí veuràs com invertim cada euro i com mesurem l'èxit.</p>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-8 items-center">
                 <!-- Budget Chart -->
-                <div class="card p-6">
-                    <h3 class="text-xl font-bold text-center mb-4 text-slate-800">Distribució del Pressupost Inicial (2.000€)</h3>
+                <div class="card p-6 md:col-span-2">
+                    <h3 class="text-xl font-bold text-center mb-4 text-slate-800">Distribució Pressupost (2.000€)</h3>
                     <div class="chart-container">
                         <canvas id="budgetChart"></canvas>
                     </div>
                 </div>
                 <!-- KPIs -->
-                <div class="card p-6">
+                <div class="card p-6 md:col-span-3">
                     <h3 class="text-xl font-bold mb-4 text-slate-800">Indicadors Clau d'Èxit (KPIs)</h3>
                     <ul class="space-y-4">
                         <li class="flex items-start">
-                            <span class="text-blue-500 mr-3 mt-1">●</span>
+                            <span class="text-blue-500 mr-4 mt-1 text-xl">📈</span>
                             <div>
                                 <h4 class="font-semibold">Vendes i Leads</h4>
-                                <p class="text-slate-600">El nostre objectiu final. Mesurarem el nombre de màquines venudes i formularis de pressupost rebuts.</p>
+                                <p class="text-slate-600">El nostre objectiu final. Mesurarem màquines venudes i formularis de pressupost rebuts.</p>
                             </div>
                         </li>
                         <li class="flex items-start">
-                            <span class="text-blue-500 mr-3 mt-1">●</span>
+                            <span class="text-blue-500 mr-4 mt-1 text-xl">🖱️</span>
                             <div>
                                 <h4 class="font-semibold">Tràfic i Conversions Web</h4>
-                                <p class="text-slate-600">Amb Google Analytics 4, sabrem no només qui ens visita, sinó quines accions realitzen i quins canals són més efectius.</p>
+                                <p class="text-slate-600">Amb Google Analytics 4, sabrem qui ens visita, què fa i quins canals són més efectius.</p>
                             </div>
                         </li>
                         <li class="flex items-start">
-                            <span class="text-blue-500 mr-3 mt-1">●</span>
+                            <span class="text-blue-500 mr-4 mt-1 text-xl">⚙️</span>
                             <div>
                                 <h4 class="font-semibold">Optimització Contínua</h4>
-                                <p class="text-slate-600">Analitzarem quins anuncis i paraules clau generen més resultats per reinvertir el pressupost de manera intel·ligent.</p>
+                                <p class="text-slate-600">Analitzarem anuncis i paraules clau per reinvertir el pressupost de manera intel·ligent.</p>
                             </div>
                         </li>
                     </ul>
@@ -162,10 +184,10 @@
                     title: 'Prioritat 1: Atacar la Demanda Activa (Google Ads)',
                     content: `
                         <p class="mb-4">No podem esperar que els clients ens trobin. Hem d'anar on ja estan buscant activament una solució. Aquesta és la inversió amb el retorn més ràpid i directe.</p>
-                        <h4 class="font-semibold mb-2">Per què Google Ads?</h4>
+                        <h4 class="font-semibold mb-2 text-slate-700">Per què Google Ads?</h4>
                         <p>Perquè ens permet interceptar clients en el moment exacte de màxima intenció de compra (quan busquen "comprar trituradora" o "preu machacadora"). És on es troben els clients més qualificats, aquells que tenen un problema i necessiten una solució ara.</p>
-                        <div class="mt-4 p-4 bg-slate-100 rounded-lg">
-                            <p class="font-bold">Acció Clau: Destinar la major part del pressupost inicial (1.500€) a aquesta plataforma per generar els primers leads de qualitat.</p>
+                        <div class="mt-4 p-4 bg-slate-100 rounded-lg border-l-4 border-blue-500">
+                            <p class="font-bold text-slate-800">Acció Clau: Destinar la major part del pressupost inicial (1.500€) a aquesta plataforma per generar els primers leads de qualitat.</p>
                         </div>
                     `
                 },
@@ -173,13 +195,13 @@
                     title: 'Prioritat 2: Construir el Nostre Fort Digital (Web i Contingut)',
                     content: `
                         <p class="mb-4">Un cop captem l'atenció d'un client potencial, la nostra web ha de fer la feina de convèncer. És el nostre comercial 24/7 i ha de ser impecable.</p>
-                        <h4 class="font-semibold mb-2">Per què una web optimitzada i un vídeo?</h4>
-                        <ul class="list-disc list-inside space-y-2">
+                        <h4 class="font-semibold mb-2 text-slate-700">Per què una web optimitzada i un vídeo?</h4>
+                        <ul class="list-disc list-inside space-y-2 mb-4">
                             <li><strong>Web Ràpida i Clara:</strong> Ha de transmetre la nostra proposta de valor (garantia, servei, logística) en menys de 10 segons.</li>
                             <li><strong>El Vídeo:</strong> És l'eina de credibilitat definitiva. Mostra la màquina funcionant, demostrant que som una empresa real, transparent i professional.</li>
                         </ul>
-                        <div class="mt-4 p-4 bg-slate-100 rounded-lg">
-                            <p class="font-bold">Acció Clau: Assegurar que la web té un formulari de contacte visible a totes les pàgines i el vídeo en un lloc destacat.</p>
+                        <div class="p-4 bg-slate-100 rounded-lg border-l-4 border-blue-500">
+                            <p class="font-bold text-slate-800">Acció Clau: Assegurar que la web té un formulari de contacte visible a totes les pàgines i el vídeo en un lloc destacat.</p>
                         </div>
                     `
                 },
@@ -187,10 +209,10 @@
                     title: 'Prioritat 3: Sembrar per al Futur (LinkedIn i Email)',
                     content: `
                         <p class="mb-4">La venda B2B és una marató, no un esprint. La confiança es construeix amb el temps i les relacions són fonamentals.</p>
-                        <h4 class="font-semibold mb-2">Per què LinkedIn i no altres xarxes?</h4>
-                        <p>Perquè és on hi ha els decisors: caps de compra, gerents de planta i propietaris. Encara que no comprin directament des de LinkedIn, l'utilitzen per investigar proveïdors. La nostra presència allà ens posiciona com a experts i genera una familiaritat que serà clau en futures decisions de compra. L'emailing ens permetrà mantenir viva la relació amb els leads que encara no estan a punt per comprar.</p>
-                        <div class="mt-4 p-4 bg-slate-100 rounded-lg">
-                           <p class="font-bold">Acció Clau: Connectar amb directius del sector, compartir contingut de valor (articles, vídeos) i construir una base de dades per a un butlletí mensual.</p>
+                        <h4 class="font-semibold mb-2 text-slate-700">Per què LinkedIn i no altres xarxes?</h4>
+                        <p>Perquè és on hi ha els decisors: caps de compra, gerents de planta i propietaris. Encara que no comprin directament des de LinkedIn, l'utilitzen per investigar proveïdors. La nostra presència allà ens posiciona com a experts i genera una familiaritat que serà clau en futures decisions de compra.</p>
+                        <div class="mt-4 p-4 bg-slate-100 rounded-lg border-l-4 border-blue-500">
+                           <p class="font-bold text-slate-800">Acció Clau: Connectar amb directius, compartir contingut de valor i construir una base de dades per a un butlletí mensual.</p>
                         </div>
                     `
                 }
@@ -201,10 +223,18 @@
 
             function updateContent(stageId) {
                 const data = strategyContent[stageId];
-                contentPane.innerHTML = `
-                    <h3 class="text-2xl font-bold text-slate-800 mb-4">${data.title}</h3>
-                    ${data.content}
-                `;
+                
+                contentPane.classList.remove('fade-in');
+                contentPane.classList.add('fade-out');
+
+                setTimeout(() => {
+                    contentPane.innerHTML = `
+                        <h3 class="text-2xl font-bold text-slate-800 mb-4">${data.title}</h3>
+                        ${data.content}
+                    `;
+                    contentPane.classList.remove('fade-out');
+                    contentPane.classList.add('fade-in');
+                }, 300);
 
                 funnelStages.forEach(stage => {
                     stage.classList.remove('active');
@@ -219,7 +249,7 @@
             });
 
             // Initial content
-            updateContent('stage-1');
+            setTimeout(() => updateContent('stage-1'), 100);
 
             // Budget Chart
             const ctx = document.getElementById('budgetChart').getContext('2d');
@@ -231,11 +261,12 @@
                         label: 'Pressupost',
                         data: [1500, 500],
                         backgroundColor: [
-                            '#3b82f6', // blue-500
+                            '#2563eb', // blue-600
                             '#93c5fd', // blue-300
                         ],
                         borderColor: '#ffffff',
-                        borderWidth: 4
+                        borderWidth: 5,
+                        hoverOffset: 8
                     }]
                 },
                 options: {
@@ -249,6 +280,7 @@
                                 padding: 20,
                                 font: {
                                     size: 14,
+                                    family: 'Inter'
                                 }
                             }
                         },
